@@ -1,6 +1,10 @@
-from flask import Flask
+from flask import Flask, render_template
 
-by EC
+app = Flask("warmupexercises")
 
-app = Flask("random_warmup")
+@app.route("/")
+def home():
+	return render_template("index.html")
 
+if __name__ == "__main__":
+	app.run()
