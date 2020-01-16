@@ -3,14 +3,19 @@
 <html lang="de">
 
  	<head>
+
     	<meta charset="utf-8">
     	<title>Warmup-Exercises-Picker</title>
-    	<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    	<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+    	{% block head %}{% endblock %}
+    
     </head>
 
  	<body>
-		<h1> Warmup-Exersices-Picker</h1>
-		<p>Hallo, hier kannst du ganz einfach ein Warmup-Exercisese für dein Training auswählen.</p>
+		
+		{% block body %}{% endblock %}
+
 	</body>
 
 </html>
