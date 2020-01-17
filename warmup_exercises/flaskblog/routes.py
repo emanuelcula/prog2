@@ -1,10 +1,20 @@
+#im routes.py werden die Funktionen zugeordnet
+
+#allgemeine Betriebssystemfunktionalität
 import os
+#Generiert Nummern zur Verschleierung wichtiger Daten wie Passwörter
 import secrets
+#Import zum verkleiner der Profilbilder
 from PIL import Image
+#Import Flask
 from flask import render_template, url_for, flash, redirect, request, abort
+#Import der App sowie der Datenbank
 from flaskblog import app, db
+#Import der Funktion forms.py
 from flaskblog.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm
+#Import der Funktion models.py
 from flaskblog.models import User, Post
+#Import der Flask-Funktion login für die Benutzerverwaltung
 from flask_login import login_user, current_user, logout_user, login_required
 
 
@@ -13,12 +23,6 @@ from flask_login import login_user, current_user, logout_user, login_required
 def home():
     posts = Post.query.all()
     return render_template('home.html', posts=posts)
-
-
-@app.route("/about")
-def about():
-    return render_template('about.html', title='About')
-
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -29,7 +33,7 @@ def register():
         user = User(username=form.username.data, email=form.email.data, password=form.password.data)
         db.session.add(user)
         db.session.commit()
-        flash('Your account has been created! You are now able to log in', 'success')
+        flash('Super, du hast jetzt einen Account und kannst dich einloggen', 'success')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
@@ -46,7 +50,7 @@ def login():
             next_page = request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('home'))
         else:
-            flash('Login Unsuccessful. Please check email and password', 'danger')
+            flash('Da passt was nicht, probiere es nochmals aus', 'danger')
     return render_template('login.html', title='Login', form=form)
 
 
@@ -81,7 +85,7 @@ def account():
         current_user.username = form.username.data
         current_user.email = form.email.data
         db.session.commit()
-        flash('Your account has been updated!', 'success')
+        flash('Deine Daten wurden aktualisiert', 'success')
         return redirect(url_for('account'))
     elif request.method == 'GET':
         form.username.data = current_user.username
@@ -99,7 +103,7 @@ def new_post():
         post = Post(title=form.title.data, content=form.content.data, author=current_user)
         db.session.add(post)
         db.session.commit()
-        flash('Your post has been created!', 'success')
+        flash('Dein Beitrag wurde gespeichert.', 'success')
         return redirect(url_for('home'))
     return render_template('create_post.html', title='New Post',
                            form=form, legend='New Post')
@@ -122,7 +126,7 @@ def update_post(post_id):
         post.title = form.title.data
         post.content = form.content.data
         db.session.commit()
-        flash('Your post has been updated!', 'success')
+        flash('Dein Beitrag wurde aktualisiert', 'success')
         return redirect(url_for('post', post_id=post.id))
     elif request.method == 'GET':
         form.title.data = post.title
@@ -139,5 +143,5 @@ def delete_post(post_id):
         abort(403)
     db.session.delete(post)
     db.session.commit()
-    flash('Your post has been deleted!', 'success')
+    flash('Dein Beitrag wurde gelöscht. Mach doch gleich einen neuen!', 'success')
     return redirect(url_for('home'))
