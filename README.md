@@ -1,4 +1,4 @@
-## *Warmup-Exercises*
+# *Warmup-Exercises*
 
 Im Modul «Einführung Programmieren 2» an der Fachhochschule Graubünden muss im dritten Semester ein Python-Programm geschrieben werden.
 
@@ -26,8 +26,8 @@ Trainer können in einer Webanwendung Übungen hinzufügen und so den anderen zu
 Loginname: test@test.ch
 Passwort: test123
 
-##Workflow
+## Workflow
 
 ![](workflow.jpg)
 
-Die Aufgabe wurde mit dem Tutorial von CoreyMSchafer durchgeführt und den eigenen Anforderungen entsprechend angepasst.
+Die Aufgabe ist am Tutorial von [CoreyMSchafer](https://www.youtube.com/channel/UCCezIgC97PvUuR4_gbFUs5g) angelehnt und den eigenen Anforderungen angepasst.
