@@ -1,4 +1,4 @@
-#die __init__.py 
+#__init__.py 
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
