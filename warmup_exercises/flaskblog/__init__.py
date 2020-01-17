@@ -1,4 +1,4 @@
-#__init__.py 
+#Initialsierung der Datenbank SQLAchemy
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
