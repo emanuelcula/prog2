@@ -1,6 +1,6 @@
-#im routes.py werden die Funktionen zugeordnet
+#im routes.py werden die verschiedenen Funktionen weitergeleitet
 
-#allgemeine Betriebssystemfunktionalität
+#Import allgemeine Betriebssystemfunktionalität
 import os
 #Generiert Nummern zur Verschleierung wichtiger Daten wie Passwörter
 import secrets
@@ -17,31 +17,39 @@ from flaskblog.models import User, Post
 #Import der Flask-Funktion login für die Benutzerverwaltung
 from flask_login import login_user, current_user, logout_user, login_required
 
-
+#Anzeigen aller Beiträge auf der Startseite
 @app.route("/")
 @app.route("/home")
 def home():
     posts = Post.query.all()
     return render_template('home.html', posts=posts)
 
+#Registierungsformular mit HTTP-Methode Get und Post
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
+        #falls angemeldet weiterleiten an die Startseite
         return redirect(url_for('home'))
     form = RegistrationForm()
+    #Überprüfung der Daten beim Registierung
     if form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data, password=form.password.data)
+        #Speicherung der Daten in der User-Datenbank.
         db.session.add(user)
         db.session.commit()
+        #Anzeige bei erfolgreicher Anmeldung
         flash('Super, du hast jetzt einen Account und kannst dich einloggen', 'success')
+        #Weiterleitung zum Login
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
-
+#Loginformular mit HTTP-Methode Get und Post
 @app.route("/login", methods=['GET', 'POST'])
 def login():
+    #Falls Benutzer bereits angemeldet ist, weiterleiten zur Startseite
     if current_user.is_authenticated:
         return redirect(url_for('home'))
+    #Laden des Loginformulars
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
@@ -50,22 +58,24 @@ def login():
             next_page = request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('home'))
         else:
+            #Anzeige Fehlermeldung falls Login nicht funktioniert
             flash('Da passt was nicht, probiere es nochmals aus', 'danger')
     return render_template('login.html', title='Login', form=form)
 
-
+#Einfaches Logout des Benutzers mit anschliessender Weiterleitung zur Startseite
 @app.route("/logout")
 def logout():
     logout_user()
     return redirect(url_for('home'))
 
-
+#Speicherung des Profilbildes
 def save_picture(form_picture):
+    #Umwandlung des Bildnamens in einen Token
     random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_picture.filename)
     picture_fn = random_hex + f_ext
     picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
-
+    #Anpassen der Grössen des Profilbildes welches hochgeladen wird
     output_size = (125, 125)
     i = Image.open(form_picture)
     i.thumbnail(output_size)
@@ -73,7 +83,7 @@ def save_picture(form_picture):
 
     return picture_fn
 
-
+#eigene Benutzerverwaltung mit Möglichkeit der Anpassung der Daten
 @app.route("/account", methods=['GET', 'POST'])
 @login_required
 def account():
@@ -94,7 +104,7 @@ def account():
     return render_template('account.html', title='Account',
                            image_file=image_file, form=form)
 
-
+#Möglichkeit eine Beitrag hinzuzufügen, sofern man eingeloggt ist
 @app.route("/post/new", methods=['GET', 'POST'])
 @login_required
 def new_post():
@@ -114,11 +124,12 @@ def post(post_id):
     post = Post.query.get_or_404(post_id)
     return render_template('post.html', title=post.title, post=post)
 
-
+#Möglichkeit den eigenen Beitrag anzupassen
 @app.route("/post/<int:post_id>/update", methods=['GET', 'POST'])
 @login_required
 def update_post(post_id):
     post = Post.query.get_or_404(post_id)
+    #Autor muss der eingeloggte Benutzer sein
     if post.author != current_user:
         abort(403)
     form = PostForm()
@@ -134,7 +145,7 @@ def update_post(post_id):
     return render_template('create_post.html', title='Update Post',
                            form=form, legend='Update Post')
 
-
+#Möglichkeit den eigenen Beitrag zu löschen
 @app.route("/post/<int:post_id>/delete", methods=['POST'])
 @login_required
 def delete_post(post_id):
