@@ -7,7 +7,7 @@
         <!-- Anzeige des Autors für den jeweiligen Post -->
         <a class="mr-2" href="#">{{ post.author.username }}</a>
         <!-- Anzeige Datum wann der Post erstellt worden ist -->
-        <small class="text-muted">{{ post.date_posted.strftime("%d %B %Y") }}</small>
+        <small class="text-muted">{{ post.date_posted.strftime("hinzugefügt: %d. %b. %Y") }}</small>
         <!-- Bei gleichem Autor und Benutzer kann der Beiträg verändert werden -->
         {% if post.author == current_user %}
           <div>
@@ -20,6 +20,8 @@
       <p class="article-content">{{ post.content }}</p>
     </div>
   </article>
+
+  
 
   <!-- Modal Bootstrap Overlay zum löschen eines Beitrages -->
   <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
