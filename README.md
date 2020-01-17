@@ -1,17 +1,33 @@
-## *Warmup-Exercises-Picker*
+## *Warmup-Exercises*
 
 Im Modul «Einführung Programmieren 2» an der Fachhochschule Graubünden muss im dritten Semester ein Python-Programm geschrieben werden.
 
 Die Beschreibung dazu lautet:
 **Mithilfe des Microframeworks Flask soll eine Webapplikation (App) entwickelt werden.**
 
-Die Idee zum Projekt entstand dadurch, das einzelne Riegen unseres Sportvereines Mühe haben, kreative Idee für das Einlaufen zu finden.
+Die Idee zum Projekt entstand dadurch, das Trainer unseres Sportvereines Mühe haben, kreative Idee für das Einlaufen zu finden. Diese Webapplikation soll dabei helfen, die verschiedenen Ideen der Trainer zusammenzuführen.
 
 ## Verwendung
 
-Mittels Eingabe der Anzahl Teilnahmer im Training soll die Weapplikation ein Einläuf-Übung ausgeben.
+Trainer können in einer Webanwendung Übungen hinzufügen und so den anderen zur Verfügung stellen. Dazu müssen sie ein Login erstellen und mit diesem Benutzer anschliessend eine Übung hinzufügen. Die Übungen können anschliessend auch überarbeite und gelöscht werden.
 
 ## Anforderung
 
-- Einfache Datenübernahme und Ausgeben der in einer Datenbank gespeicherten Übung.
-- Selbstständige Erfassung einer Übung und Speicherung in der Datenbank.
+- Loginmöglichkeit mit Passwortabfrage für die Trainer
+- Einfaches Hinzufügen der Übung
+- Einfaches Ändern der Übungen
+- Einfaches Löschen der Übungen
+- Speicherung der Benutzer in einer Datenbank
+- Speicherung der Übungen in einer Datenbank
+- Gesamtanzahl der Übungen wird angezeigt
+
+## Test-Login
+
+Loginname: test@test.ch
+Passwort: test123
+
+##Workflow
+
+![](workflow.jpg)
+
+Die Aufgabe wurde mit dem Tutorial von CoreyMSchafer durchgeführt und den eigenen Anforderungen entsprechend angepasst.
