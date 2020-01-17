@@ -23,11 +23,21 @@ Trainer können in einer Webanwendung Übungen hinzufügen und so den anderen zu
 
 ## Test-Login
 
-Loginname: test@test.ch
-Passwort: test123
+Loginname: test@test.ch | Passwort: test123
 
-##Workflow
+## Workflow
+
+Mittels main.py kann die Webapp aufgerufen werden. Die verschiedenen Funktionen sind in Packages gespeichert.
 
 ![](workflow.jpg)
 
+
+## Erweiterungen
+
+- Kategorien-Verwaltung für weitere Übungen (Hauptteil, Abschluss, Cool-Down)
+- Suchfunktion
+- Filterfunktion der Titel
+- Kommentar/Diskussion für einzelne Beiträg zum Austausch der Erfahrungen
+
 Die Aufgabe wurde mit dem Tutorial von CoreyMSchafer durchgeführt und den eigenen Anforderungen entsprechend angepasst.
+
